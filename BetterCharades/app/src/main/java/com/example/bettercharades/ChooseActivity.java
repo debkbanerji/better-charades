@@ -44,7 +44,7 @@ public class ChooseActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playIntent = new Intent(ChooseActivity.this, PlayActivity.class);
+                Intent playIntent = new Intent(ChooseActivity.this, ChooseCategoryActivity.class);
                 startActivity(playIntent);
             }
         });

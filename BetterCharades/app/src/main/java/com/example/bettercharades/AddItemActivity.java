@@ -36,7 +36,8 @@ public class AddItemActivity extends AppCompatActivity {
 
 
         try {
-            fos = openFileOutput(title + ".txt", Context.MODE_PRIVATE);
+//            fos = openFileOutput(title, Context.MODE_PRIVATE);
+            fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
             fos.write("TEST".getBytes());
             fos.close();
         } catch (Exception e) {

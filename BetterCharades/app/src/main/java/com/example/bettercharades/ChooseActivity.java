@@ -1,6 +1,7 @@
 package com.example.bettercharades;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,17 +15,18 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
 
-public class ChooseActivity extends AppCompatActivity implements SensorEventListener {
+public class ChooseActivity extends AppCompatActivity {
 
-    private SensorManager mSensorManager;
-    private Sensor mGyroscope;
-    private TextView infoText;
-    private int tiltFactor;
+    Button playButton;
+    Button createButton;
+    Button downloadButton;
+    Button uploadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,40 +35,45 @@ public class ChooseActivity extends AppCompatActivity implements SensorEventList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        playButton = (Button) findViewById(R.id.playButton);
+        createButton = (Button) findViewById(R.id.createButton);
+        uploadButton = (Button) findViewById(R.id.uploadButton);
+        downloadButton = (Button) findViewById(R.id.downloadButton);
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
-        infoText = (TextView) findViewById(R.id.infotext);
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent playIntent = new Intent(ChooseActivity.this, PlayActivity.class);
+                startActivity(playIntent);
+            }
+        });
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createIntent = new Intent(ChooseActivity.this, CreateCategoryActivity.class);
+                startActivity(createIntent);
+            }
+        });
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent uploadIntent = new Intent(ChooseActivity.this, UploadCategoryActivity.class);
+                startActivity(uploadIntent);
+            }
+        });
+
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent downloadIntent = new Intent(ChooseActivity.this, DownloadCategoryActivity.class);
+                startActivity(downloadIntent);
+            }
+        });
+
     }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-//        infoText.setText(Integer.toString((int) (event.values[0] * 100)));
-//        infoText.setText(Integer.toString((int) (event.values[0] * 100)) + "\n" + Integer.toString((int) (event.values[1] * 100)) + "\n" + Integer.toString((int) (event.values[2] * 100)));
-        double tiltThreshold = 0.2;
-        tiltFactor = 0;
-        if (Math.abs(event.values[0]) < tiltThreshold) {
-            tiltFactor = -1;
-        } else if (Math.abs(event.values[0]) > 1.0 - tiltThreshold) {
-            tiltFactor = 1;
-        }
-        infoText.setText(Integer.toString(tiltFactor));
-    }
-
-    @Override
-    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

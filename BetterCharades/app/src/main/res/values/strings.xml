@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Better Charades</string>
     <string name="action_settings">Settings</string>
+    <string name="create_text">Enter a name for the category you would like to create.\nNote that if you already have a category of the same name it will be overwritten.</string>
+    <string name="add_item_prompt">Enter the items you would like to add to your category and press the finish button once you are done</string>
 </resources>

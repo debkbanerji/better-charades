@@ -27,11 +27,19 @@
         android:layout_below="@+id/textView"
         android:text="@string/create_text" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/create_text_note" />
+
     <EditText
         android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:hint="Category name"
         android:inputType="textNoSuggestions" />
@@ -43,4 +51,5 @@
         android:layout_below="@+id/categoryName"
         android:layout_centerHorizontal="true"
         android:text="Create" />
+
 </RelativeLayout>

@@ -53,7 +53,7 @@ public class AddItemActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String item = itemText.toString();
+                String item = (itemText.getText().toString() + "\n");
                 if (item.length() > 0) {
                     try {
                         fos.write(item.getBytes());
@@ -70,7 +70,7 @@ public class AddItemActivity extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String item = itemText.toString();
+                String item = (itemText.getText().toString() + "\n");
                 if (item.length() > 0) {
                     try {
                         fos.write(item.getBytes());

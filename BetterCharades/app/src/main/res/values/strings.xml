@@ -4,4 +4,7 @@
     <string name="create_text">Enter a name for the category you would like to create.</string>
     <string name="create_text_note">Note that if you already have a category of the same name it will be overwritten.</string>
     <string name="add_item_prompt">Enter the items you would like to add to your category and press the finish button once you are done</string>
+    <string name="upload_prompt">Here you can upload categories you\'ve created to the remote database.
+        Note that you won\'t be able to upload a category that already exists in the database.</string>
+    <string name="download_prompt">Here you can download categories from the remote database. Note that any categories downloaded from the remote database will replace local categories of the same name.</string>
 </resources>

@@ -23,6 +23,8 @@ public class AddItemActivity extends AppCompatActivity {
     Button addButton;
     Button finishButton;
     FileOutputStream fos;
+    boolean hasAdded;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +34,11 @@ public class AddItemActivity extends AppCompatActivity {
         headingText = (TextView) findViewById(R.id.addItemHeading);
         Intent intent = getIntent();
 
-        String title = intent.getStringExtra("CATEGORY_NAME");
+        title = intent.getStringExtra("CATEGORY_NAME");
         headingText.setText("Creating category \"" + title + "\"");
 
+        hasAdded = false;
 
-        try {
-//            fos = openFileOutput(title, Context.MODE_PRIVATE);
-            fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
-//            fos.write("TEST".getBytes());
-//            fos.close();
-        } catch (Exception e) {
-            Log.e("File IO Error", e.getMessage());
-        }
-//        Log.i("IO worked", "No errors writing to/creating file");
 
         itemText = (EditText) findViewById(R.id.itemText);
 
@@ -53,15 +47,8 @@ public class AddItemActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String item = (itemText.getText().toString() + "\n");
-                if (item.length() > 0) {
-                    try {
-                        fos.write(item.getBytes());
-                    } catch (Exception e) {
-                        Log.e("File IO Error", e.getMessage());
-                    }
-                }
-                itemText.setText("");
+//                Log.e("Add hasadded: ", Boolean.toString(hasAdded));
+                addtoCategoory();
             }
         });
 
@@ -70,24 +57,43 @@ public class AddItemActivity extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String item = (itemText.getText().toString() + "\n");
-                if (item.length() > 0) {
+//                Log.e("hasadded: ", Boolean.toString(hasAdded));
+                addtoCategoory();
+
+                if (hasAdded) {
                     try {
-                        fos.write(item.getBytes());
+                        fos.close();
                     } catch (Exception e) {
                         Log.e("File IO Error", e.getMessage());
                     }
-                }
-                try {
-                    fos.close();
-                } catch (Exception e) {
-                    Log.e("File IO Error", e.getMessage());
                 }
                 Intent intent = new Intent(AddItemActivity.this, ChooseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
+    }
+
+    private void addtoCategoory() {
+        String item = (itemText.getText().toString());
+
+        if (!hasAdded && item.length() > 0) {
+            try {
+                fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
+                hasAdded = true;
+            } catch (Exception e) {
+                Log.e("File IO Error", e.getMessage());
+            }
+        }
+
+        if (item.length() > 0) {
+            itemText.setText("");
+            try {
+                fos.write((item + "\n").getBytes());
+            } catch (Exception e) {
+                Log.e("File IO Error", e.getMessage());
+            }
+        }
     }
 
 }

@@ -28,6 +28,7 @@
         <activity android:name=".CreateCategoryActivity" />
         <activity android:name=".AddItemActivity" />
         <activity android:name=".UploadCategoryActivity" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

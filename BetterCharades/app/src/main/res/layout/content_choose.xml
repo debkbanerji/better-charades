@@ -46,5 +46,13 @@
         android:layout_centerHorizontal="true"
         android:text="Download Categories" />
 
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/downloadButton"
+        android:layout_centerHorizontal="true"
+        android:text="How to play" />
+
 
 </RelativeLayout>

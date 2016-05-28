@@ -34,8 +34,8 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         String rgx = "(.+).category.txt";
         for (int i = 0; i < fileList.length; i++) {
             Matcher m = Pattern.compile(rgx).matcher(fileList[i]);
-            if(m.find()){
-               categoryList.add(m.group(1));
+            if (m.find()) {
+                categoryList.add(m.group(1));
             }
         }
 
@@ -56,6 +56,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         timePicker = (Spinner) findViewById(R.id.timePicker);
 
         final List<String> times = new ArrayList<String>();
+        times.add("30s");
         times.add("60s");
         times.add("90s");
         times.add("120s");
@@ -67,8 +68,10 @@ public class ChooseCategoryActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    time = 60100;
+                    time = 30100;
                 } else if (position == 1) {
+                    time = 60100;
+                } else if (position == 2) {
                     time = 90100;
                 } else {
                     time = 120100;

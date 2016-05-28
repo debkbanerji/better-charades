@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,16 +40,18 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     String title;
     MediaPlayer correct;
     MediaPlayer incorrect;
+    Button finishGame;
     int tiltFactor;
     int oldTiltFactor;
     List<ResultPair> results;
-    GridView resultGrid;
+    ListView resultView;
     List<String> questions;
     int correctItems;
     int totalItems;
     int currentItem;
     int time;
     boolean gameOver;
+    boolean gameHasBegun;
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -59,7 +63,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             tiltFactor = 1;
         }
 
-        if (!gameOver && tiltFactor != oldTiltFactor) { //If the game is ongoing;
+        if (gameHasBegun && !gameOver && tiltFactor != oldTiltFactor) { //If the game is ongoing;
             if (tiltFactor == 0) {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorPrimary));
                 currentItem++;
@@ -105,7 +109,8 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         timeText = (TextView) findViewById(R.id.timeText);
 //        currentCategoryText = (TextView) findViewById(R.id.currentCategoryText);
         background = (RelativeLayout) findViewById(R.id.playBackground);
-        resultGrid = (GridView) findViewById(R.id.gridView);
+        resultView = (ListView) findViewById(R.id.resultView);
+        finishGame = (Button) findViewById(R.id.finishGameButton);
         gameOver = false;
         totalItems = 0;
         correctItems = 0;
@@ -118,21 +123,32 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         final Intent intent = getIntent();
 
         title = intent.getStringExtra("CATEGORY");
-        time = intent.getIntExtra("TIME", 60100);
+        time = intent.getIntExtra("TIME", 30100);
 //        currentCategoryText.setText(title);
         questions = questionList();
-        infoText.setText(questions.get(currentItem));
 
         new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timeText.setText(millisUntilFinished / 1000 + " seconds");
+                timeText.setText("Game starts in " + millisUntilFinished / 1000);
             }
 
             public void onFinish() {
                 //game is over
-                gameOver = true;
-                finishGame();
+                gameHasBegun = true;
+                infoText.setText(questions.get(currentItem % questions.size()));
+                new CountDownTimer(time, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+                        timeText.setText(millisUntilFinished / 1000 + " seconds");
+                    }
+
+                    public void onFinish() {
+                        //game is over
+                        gameOver = true;
+                        finishGame();
+                    }
+                }.start();
             }
         }.start();
     }
@@ -144,11 +160,21 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         timeText.setTextSize(35);
         background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorBackground));
         infoText.setVisibility(View.INVISIBLE);
-        resultGrid.setVisibility(View.VISIBLE);
+        resultView.setVisibility(View.VISIBLE);
+        finishGame.setVisibility(View.VISIBLE);
         ResultListAdapter resultListAdapter = new ResultListAdapter(
                 PlayActivity.this, R.layout.result_item, results);
-        resultGrid.setAdapter(resultListAdapter);
+        resultView.setAdapter(resultListAdapter);
 
+
+        finishGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 
     public List<String> questionList() {

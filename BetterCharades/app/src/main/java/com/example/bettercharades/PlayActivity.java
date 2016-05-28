@@ -2,6 +2,7 @@ package com.example.bettercharades;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,14 +33,14 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     Sensor mGyroscope;
     TextView infoText;
     TextView timeText;
-//    TextView currentCategoryText;
+    //    TextView currentCategoryText;
     RelativeLayout background;
     String title;
     MediaPlayer correct;
     MediaPlayer incorrect;
     int tiltFactor;
     int oldTiltFactor;
-    List<resultPair> results;
+    List<ResultPair> results;
     GridView resultGrid;
     List<String> questions;
     int correctItems;
@@ -69,13 +69,13 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 totalItems++;
                 correctItems++;
                 correct.start();
-                results.add(new resultPair(questions.get(currentItem % questions.size()), true));
+                results.add(new ResultPair(questions.get(currentItem % questions.size()), true));
                 infoText.setText("Correct!");
             } else {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
                 incorrect.start();
-                results.add(new resultPair(questions.get(currentItem % questions.size()), false));
+                results.add(new ResultPair(questions.get(currentItem % questions.size()), false));
                 infoText.setText("Pass");
             }
         }
@@ -105,11 +105,12 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         timeText = (TextView) findViewById(R.id.timeText);
 //        currentCategoryText = (TextView) findViewById(R.id.currentCategoryText);
         background = (RelativeLayout) findViewById(R.id.playBackground);
+        resultGrid = (GridView) findViewById(R.id.gridView);
         gameOver = false;
         totalItems = 0;
         correctItems = 0;
         currentItem = 0;
-        results = new LinkedList<>();
+        results = new ArrayList<>();
         correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
         incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
 
@@ -122,7 +123,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         questions = questionList();
         infoText.setText(questions.get(currentItem));
 
-        new CountDownTimer(time, 1000) {
+        new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 timeText.setText(millisUntilFinished / 1000 + " seconds");
@@ -139,9 +140,15 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
     public void finishGame() {
         timeText.setText("You got " + correctItems + " out of " + totalItems + " correct");
-        background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorPrimary));
+        timeText.setTextColor(Color.DKGRAY);
+        timeText.setTextSize(35);
+        background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorBackground));
         infoText.setVisibility(View.INVISIBLE);
-//        infoText.setText("You got " + correctItems + " out of " + totalItems + " correct");
+        resultGrid.setVisibility(View.VISIBLE);
+        ResultListAdapter resultListAdapter = new ResultListAdapter(
+                PlayActivity.this, R.layout.result_item, results);
+        resultGrid.setAdapter(resultListAdapter);
+
     }
 
     public List<String> questionList() {
@@ -172,13 +179,5 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         //do nothing
     }
 
-    private class resultPair {
-        String item;
-        boolean isCorrect;
 
-        resultPair(String item, boolean isCorrect) {
-            this.item = item;
-            this.isCorrect = isCorrect;
-        }
-    }
 }

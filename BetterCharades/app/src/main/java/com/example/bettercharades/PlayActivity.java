@@ -72,13 +72,27 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorSuccess));
                 totalItems++;
                 correctItems++;
+                correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
                 correct.start();
+                correct.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+
+                    };
+                });
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), true));
                 infoText.setText("Correct!");
             } else {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
+                incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
                 incorrect.start();
+                incorrect.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+
+                    };
+                });
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), false));
                 infoText.setText("Pass");
             }
@@ -116,8 +130,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         correctItems = 0;
         currentItem = 0;
         results = new ArrayList<>();
-        correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
-        incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
 
 
         final Intent intent = getIntent();
@@ -204,6 +216,4 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         //do nothing
     }
-
-
 }

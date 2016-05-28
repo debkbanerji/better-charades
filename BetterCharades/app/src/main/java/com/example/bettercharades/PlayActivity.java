@@ -1,12 +1,12 @@
 package com.example.bettercharades;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,23 +14,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
 
 public class PlayActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -38,16 +33,20 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     Sensor mGyroscope;
     TextView infoText;
     TextView timeText;
-    TextView currentCategoryText;
+//    TextView currentCategoryText;
     RelativeLayout background;
     String title;
+    MediaPlayer correct;
+    MediaPlayer incorrect;
     int tiltFactor;
     int oldTiltFactor;
     List<resultPair> results;
+    GridView resultGrid;
     List<String> questions;
     int correctItems;
     int totalItems;
     int currentItem;
+    int time;
     boolean gameOver;
 
     @Override
@@ -69,10 +68,14 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorSuccess));
                 totalItems++;
                 correctItems++;
+                correct.start();
+                results.add(new resultPair(questions.get(currentItem % questions.size()), true));
                 infoText.setText("Correct!");
             } else {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
+                incorrect.start();
+                results.add(new resultPair(questions.get(currentItem % questions.size()), false));
                 infoText.setText("Pass");
             }
         }
@@ -100,22 +103,26 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
         infoText = (TextView) findViewById(R.id.infoText);
         timeText = (TextView) findViewById(R.id.timeText);
-        currentCategoryText = (TextView) findViewById(R.id.currentCategoryText);
+//        currentCategoryText = (TextView) findViewById(R.id.currentCategoryText);
         background = (RelativeLayout) findViewById(R.id.playBackground);
         gameOver = false;
         totalItems = 0;
         correctItems = 0;
         currentItem = 0;
         results = new LinkedList<>();
+        correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
+        incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
+
 
         final Intent intent = getIntent();
 
         title = intent.getStringExtra("CATEGORY");
-        currentCategoryText.setText(title);
+        time = intent.getIntExtra("TIME", 60100);
+//        currentCategoryText.setText(title);
         questions = questionList();
         infoText.setText(questions.get(currentItem));
 
-        new CountDownTimer(30100, 1000) {
+        new CountDownTimer(time, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 timeText.setText(millisUntilFinished / 1000 + " seconds");
@@ -125,14 +132,16 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 //game is over
                 gameOver = true;
                 finishGame();
-                timeText.setText("done!");
             }
         }.start();
     }
 
 
     public void finishGame() {
-        //finish the game
+        timeText.setText("You got " + correctItems + " out of " + totalItems + " correct");
+        background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorPrimary));
+        infoText.setVisibility(View.INVISIBLE);
+//        infoText.setText("You got " + correctItems + " out of " + totalItems + " correct");
     }
 
     public List<String> questionList() {

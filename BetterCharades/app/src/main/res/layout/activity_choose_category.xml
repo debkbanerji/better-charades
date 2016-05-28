@@ -9,19 +9,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bettercharades.ChooseCategoryActivity">
 
-    <TextView
-        android:id="@+id/chooseCategoryHeading"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/categoryBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Choose Category"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/chooseCategoryHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Choose Category"
+            android:textSize="25sp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+        <Spinner
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/chooseCategoryHeading"
+            android:layout_toEndOf="@+id/chooseCategoryHeading"
+            android:layout_alignBaseline="@+id/chooseCategoryHeading"/>
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/categoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/chooseCategoryHeading"
+        android:layout_below="@+id/categoryBar"
         android:layout_centerHorizontal="true" />
+
+
+    <!--<Spinner-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/spinner"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_toRightOf="@+id/chooseCategoryHeading"-->
+    <!--android:layout_toEndOf="@+id/chooseCategoryHeading" />-->
 </RelativeLayout>

@@ -8,14 +8,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChooseCategoryActivity extends AppCompatActivity {
+
+    public Spinner timePicker;
+    public int time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,35 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.categoryList);
         lv.setAdapter(adapter);
 
+        time = 60100;
+        timePicker = (Spinner) findViewById(R.id.timePicker);
+
+        final List<String> times = new ArrayList<String>();
+        times.add("60s");
+        times.add("90s");
+        times.add("120s");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, times);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        timePicker.setAdapter(dataAdapter);
+        timePicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    time = 60100;
+                } else if (position == 1) {
+                    time = 90100;
+                } else {
+                    time = 120100;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -53,6 +88,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseCategoryActivity.this, PlayActivity.class);
                 String categoryString = (String) parent.getItemAtPosition(position);
                 intent.putExtra("CATEGORY", categoryString);
+                intent.putExtra("TIME", time);
                 startActivity(intent);
             }
         });

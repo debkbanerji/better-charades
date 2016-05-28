@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Better Charades</string>
+    <string name="app_name">Charades++</string>
     <string name="action_settings">Settings</string>
     <string name="create_text">Enter a name for the category you would like to create.</string>
     <string name="create_text_note">Note that if you already have a category of the same name it will be overwritten.</string>

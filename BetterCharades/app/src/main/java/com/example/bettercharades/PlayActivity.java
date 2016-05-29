@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -71,27 +72,37 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorSuccess));
                 totalItems++;
                 correctItems++;
-                correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
-                correct.start();
-                correct.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
+//                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
+                if (false) {
+                    correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
+                    correct.start();
+                    correct.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
 
-                    };
-                });
+                        }
+
+                        ;
+                    });
+                }
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), true));
                 infoText.setText("Correct!");
             } else {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
-                incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
-                incorrect.start();
-                incorrect.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
+//                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
+                if (false) {
+                    incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
+                    incorrect.start();
+                    incorrect.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
 
-                    };
-                });
+                        }
+
+                        ;
+                    });
+                }
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), false));
                 infoText.setText("Pass");
             }
@@ -104,6 +115,9 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        final Intent intent = getIntent();
+
+//        Log.e("SOUND", Boolean.toString(getIntent().getBooleanExtra("SOUND_ON", true)));
 
         try {
             View decorView = getWindow().getDecorView();
@@ -130,8 +144,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         currentItem = 0;
         results = new ArrayList<>();
 
-
-        final Intent intent = getIntent();
 
         title = intent.getStringExtra("CATEGORY");
         time = intent.getIntExtra("TIME", 30100);
@@ -164,6 +176,13 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         }.start();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     public void finishGame() {
         timeText.setText("You got " + correctItems + " out of " + totalItems + " correct");
@@ -206,8 +225,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             return result;
         }
         Collections.shuffle(result, new Random(System.currentTimeMillis()));
-//        Log.e("Questions", result.toString());
-//        Log.e("Questions", Integer.toString(result.size()));
         return result;
     }
 

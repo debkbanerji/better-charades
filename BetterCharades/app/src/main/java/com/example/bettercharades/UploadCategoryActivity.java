@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,8 +82,7 @@ public class UploadCategoryActivity extends AppCompatActivity {
                 Map categoryListMap = (Map) dataSnapshot.getValue();
                 if (categoryListMap == null) {
                     dataBaseCategories = new HashSet<String>();
-                }
-                 else {
+                } else {
                     dataBaseCategories = categoryListMap.keySet();
                 }
             }
@@ -149,181 +147,62 @@ public class UploadCategoryActivity extends AppCompatActivity {
         //test code
         //use this to create categories easily for testing
         try {
-            String title = "Dhamakedar Music";
-            String result = "A Cruel Angel's Thesis\n" +
-                    "A Man for All Seasons\n" +
-                    "Afterlife\n" +
-                    "Ain't No Mountain High Enough\n" +
-                    "All I Can Do\n" +
-                    "American Pie\n" +
-                    "Auld Lang Syne\n" +
-                    "Be OK\n" +
-                    "Be Prepared \n" +
-                    "Bleeding Love\n" +
-                    "Blowin' in the Wind\n" +
-                    "Bohemian Rhapsody\n" +
-                    "Bonfire Heart\n" +
-                    "Bottle It Up\n" +
-                    "Brave\n" +
-                    "Breathe Again\n" +
-                    "Bridge over Troubled Water\n" +
-                    "Budapest\n" +
-                    "Cecilia\n" +
-                    "Chances\n" +
-                    "Colours Of The Wind\n" +
-                    "Come and Get Your Love\n" +
-                    "Come Home\n" +
-                    "Could've Been Watching You\n" +
-                    "Crystals\n" +
-                    "Do You Want to Build a Snowman\n" +
-                    "Don't Stop Believin'\n" +
-                    "Drops of Jupiter\n" +
-                    "Everybody\n" +
-                    "Everybody's Got Somebody But Me\n" +
-                    "Everything\n" +
-                    "Eye Of the Tiger\n" +
-                    "Few Days Down\n" +
-                    "Five Hundred Miles\n" +
-                    "Fix You\n" +
-                    "Gimme Something Good\n" +
-                    "Girls Chase Boys\n" +
-                    "Gonna Get Over You\n" +
-                    "Greatest Change\n" +
-                    "Hallelujah\n" +
-                    "Haven't Met You Yet\n" +
-                    "Hello\n" +
-                    "Here Comes the Sun\n" +
-                    "Hey Jude\n" +
-                    "Hey, Soul Sister\n" +
-                    "Home\n" +
-                    "Homeward Bound\n" +
-                    "Hooked On A Feeling\n" +
-                    "Hotel California\n" +
-                    "How To Save A Life\n" +
-                    "Human\n" +
-                    "I Choose You\n" +
-                    "I Don't Want to Change You\n" +
-                    "I See Fire\n" +
-                    "I Want You Back\n" +
-                    "I Will Be\n" +
-                    "I Won't Give Up\n" +
-                    "I'll Make a Man Out of You\n" +
-                    "I'm Gonna Be (500 Miles)\n" +
-                    "I'm Ready\n" +
-                    "I'm Yours\n" +
-                    "Imagine\n" +
-                    "In Other Words\n" +
-                    "Into The West \n" +
-                    "Intro\n" +
-                    "Invincible\n" +
-                    "It's a Beautiful Day\n" +
-                    "It's Just You\n" +
-                    "Just Say Yes\n" +
-                    "Just the Way You Are\n" +
-                    "Keep Singing\n" +
-                    "King of Anything\n" +
-                    "La Vie en rose\n" +
-                    "Last Christmas\n" +
-                    "Leaving on a Jet Plane\n" +
-                    "Let Her Go\n" +
-                    "Let It Be\n" +
-                    "Let It Go\n" +
-                    "Life's Too Short\n" +
-                    "Light in the Dark \n" +
-                    "Listen to the Man\n" +
-                    "Little Talks\n" +
-                    "Livin' La Vida Loca\n" +
-                    "Livin' On A Prayer\n" +
-                    "Locked Up\n" +
-                    "Looking Forward to Looking Back\n" +
-                    "Love Me Like the World Is Ending\n" +
-                    "Love Song\n" +
-                    "Marry You\n" +
-                    "Merrimack River\n" +
-                    "Never Gonna Give You Up\n" +
-                    "New Soul\n" +
-                    "Nineteen You and Me\n" +
-                    "No Surprise\n" +
-                    "One Night Town\n" +
-                    "Open Arms\n" +
-                    "Over The Rainbow\n" +
-                    "Parachute\n" +
-                    "Paradise Awaits\n" +
-                    "Photograph\n" +
-                    "Pocket Philosopher\n" +
-                    "Pompeii\n" +
-                    "Rolling in the Deep\n" +
-                    "Say Something\n" +
-                    "Say The Word\n" +
-                    "Secrets\n" +
-                    "Separate Ways (Worlds Apart)\n" +
-                    "September\n" +
-                    "Service and Sacrifice\n" +
-                    "Set Fire To The Rain\n" +
-                    "Shake It Out\n" +
-                    "She Used To Be Mine\n" +
-                    "She Will Be Loved\n" +
-                    "Skyfall\n" +
-                    "Slice\n" +
-                    "Slow\n" +
-                    "Somebody That I Used To Know\n" +
-                    "Someone Like You\n" +
-                    "Something That I Want \n" +
-                    "Somewhere Only We Know\n" +
-                    "Son Of Man \n" +
-                    "Stand by Me\n" +
-                    "Stay With Me\n" +
-                    "Stop And Stare\n" +
-                    "Strangers Like Me\n" +
-                    "Sugar\n" +
-                    "Sway\n" +
-                    "Sweet Serendipity\n" +
-                    "Swept Away\n" +
-                    "Tell Her About It\n" +
-                    "Tenerife Sea\n" +
-                    "Tha Mo Ghaol Air ird A' Chuain\n" +
-                    "That's How You Know\n" +
-                    "The Circle of Life\n" +
-                    "The End\n" +
-                    "The Heady Feeling of Freedom\n" +
-                    "The Last Goodbye\n" +
-                    "The Longest Time\n" +
-                    "The Parting Glass\n" +
-                    "The Scientist\n" +
-                    "The Show\n" +
-                    "The Sound of Silence\n" +
-                    "The Strawberry Blonde\n" +
-                    "The Tides of Destiny\n" +
-                    "The Way I Am\n" +
-                    "The Whole Of The Moon\n" +
-                    "The Wind\n" +
-                    "Thinking Out Loud\n" +
-                    "Time\n" +
-                    "Time in a Bottle\n" +
-                    "Time Machine\n" +
-                    "Time Travel\n" +
-                    "To Love Somebody\n" +
-                    "Touch The Sky\n" +
-                    "Uncharted\n" +
-                    "Uptown Girl\n" +
-                    "VCR\n" +
-                    "Viva La Vida\n" +
-                    "Waiting for an Invitation\n" +
-                    "Wanted Dead Or Alive\n" +
-                    "We Didn't Start the Fire\n" +
-                    "What Kind of Pokemon Are You\n" +
-                    "When I Was Your Man\n" +
-                    "When Will My Life Begin\n" +
-                    "Why Can't We Be Friends\n" +
-                    "Winter Song\n" +
-                    "Won't Go Home Without You\n" +
-                    "Writing's On The Wall\n" +
-                    "Yellow\n" +
-                    "Yesterday\n" +
-                    "You and I\n" +
-                    "You Found Me\n" +
-                    "You Know My Name\n" +
-                    "You'll Be In My Heart\n";
+            String title = "Disney Movies";
+            String result = "Meet The Robinsons\n" +
+                    "Bolt\n" +
+                    "The Princess And The Frog\n" +
+                    "Tangled\n" +
+                    "The Pooh Winnie The Pooh\n" +
+                    "Big Hero 6\n" +
+                    "Frozen\n" +
+                    "The Great Mouse Detective\n" +
+                    "Oliver & Company\n" +
+                    "The Little Mermaid\n" +
+                    "The Rescuers Down Under\n" +
+                    "Beauty And The Beast\n" +
+                    "Aladdin\n" +
+                    "The Lion King\n" +
+                    "Pocahontas\n" +
+                    "The Hunchback Of Notre Dame\n" +
+                    "Hercules\n" +
+                    "Mulan\n" +
+                    "Tarzan\n" +
+                    "Dinosaur\n" +
+                    "The Emperor's New Groove\n" +
+                    "Atlantis: The Lost Empire\n" +
+                    "Lilo & Stitch\n" +
+                    "Treasure Planet\n" +
+                    "Brother Bear\n" +
+                    "Home On The Range\n" +
+                    "Chicken Little\n" +
+                    "Snow White And The Seven Dwarfs\n" +
+                    "Pinocchio\n" +
+                    "Fantasia\n" +
+                    "Dumbo\n" +
+                    "Bambi\n" +
+                    "Saludos Amigos\n" +
+                    "The Three Caballeros\n" +
+                    "Make Mine Music\n" +
+                    "Fun And Fancy Free\n" +
+                    "Melody Time\n" +
+                    "The Adventures Of Ichabod And Mr. Toad\n" +
+                    "Cinderella\n" +
+                    "Wreck-It Ralph\n" +
+                    "Alice In Wonderland\n" +
+                    "Peter Pan\n" +
+                    "Lady And The Tramp\n" +
+                    "Sleeping Beauty\n" +
+                    "One Hundred And One Dalmatians\n" +
+                    "The Sword In The Stone\n" +
+                    "The Jungle Book\n" +
+                    "The Aristocats\n" +
+                    "Robin Hood\n" +
+                    "The Many Adventures Of Winnie The Pooh\n" +
+                    "The Rescuers\n" +
+                    "The Fox And The Hound\n" +
+                    "The Black Cauldron\n" +
+                    "Zootopia\n" +
+                    "Gigantic";
             FileOutputStream fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
             fos.write(result.getBytes());
             fos.close();

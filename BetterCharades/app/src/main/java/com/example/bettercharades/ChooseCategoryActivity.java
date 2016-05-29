@@ -3,6 +3,7 @@ package com.example.bettercharades;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +22,8 @@ import java.util.regex.Pattern;
 
 public class ChooseCategoryActivity extends AppCompatActivity {
 
-    public Spinner timePicker;
+    public boolean soundOn;
+    public int timeIndex;
     public int time;
 
     @Override
@@ -50,37 +55,28 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.categoryList);
         lv.setAdapter(adapter);
 
-        time = 60100;
-        timePicker = (Spinner) findViewById(R.id.timePicker);
+        try {
+            FileInputStream fis = openFileInput("settings.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 
-        final List<String> times = new ArrayList<String>();
-        times.add("30s");
-        times.add("60s");
-        times.add("90s");
-        times.add("120s");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, times);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timePicker.setAdapter(dataAdapter);
-        timePicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    time = 30100;
-                } else if (position == 1) {
-                    time = 60100;
-                } else if (position == 2) {
-                    time = 90100;
-                } else {
-                    time = 120100;
-                }
-            }
+            timeIndex = Integer.parseInt(reader.readLine());
+            soundOn = Boolean.parseBoolean(reader.readLine());
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        } catch (Exception e) {
+//            Log.e("Settings error", e.getMessage());
+            timeIndex = 0;
+            soundOn = true;
+        }
 
+        if (timeIndex == 0) {
+            time = 30100;
+        } else if (timeIndex == 1) {
+            time = 60100;
+        } else if (timeIndex == 2) {
+            time = 90100;
+        } else {
+            time = 120100;
+        }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,6 +85,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseCategoryActivity.this, PlayActivity.class);
                 String categoryString = (String) parent.getItemAtPosition(position);
                 intent.putExtra("CATEGORY", categoryString);
+                intent.putExtra("SOUND_ON", soundOn);
                 intent.putExtra("TIME", time);
                 startActivity(intent);
             }

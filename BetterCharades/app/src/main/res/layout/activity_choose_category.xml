@@ -26,17 +26,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-        <Spinner
-            android:id="@+id/timePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/chooseCategoryHeading"
-            android:layout_toEndOf="@+id/chooseCategoryHeading"
-            android:layout_alignBaseline="@+id/chooseCategoryHeading"/>
-
-
     </RelativeLayout>
 
     <ListView
@@ -46,12 +35,4 @@
         android:layout_below="@+id/categoryBar"
         android:layout_centerHorizontal="true" />
 
-
-    <!--<Spinner-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/spinner"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_toRightOf="@+id/chooseCategoryHeading"-->
-    <!--android:layout_toEndOf="@+id/chooseCategoryHeading" />-->
 </RelativeLayout>

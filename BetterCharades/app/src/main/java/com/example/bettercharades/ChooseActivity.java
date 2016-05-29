@@ -15,6 +15,7 @@ public class ChooseActivity extends AppCompatActivity {
     Button downloadButton;
     Button uploadButton;
     Button helpButton;
+    Button settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class ChooseActivity extends AppCompatActivity {
         uploadButton = (Button) findViewById(R.id.uploadButton);
         downloadButton = (Button) findViewById(R.id.downloadButton);
         helpButton = (Button) findViewById(R.id.helpButton);
+        settingsButton = (Button) findViewById(R.id.settingsButton);
 
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +69,13 @@ public class ChooseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent helpIntent = new Intent(ChooseActivity.this, HelpActivity.class);
                 startActivity(helpIntent);
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(ChooseActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
             }
         });
 

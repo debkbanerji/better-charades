@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -72,8 +74,8 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorSuccess));
                 totalItems++;
                 correctItems++;
-//                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
-                if (false) {
+                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
+//                if (false) {
                     correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
                     correct.start();
                     correct.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -90,8 +92,8 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             } else {
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
-//                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
-                if (false) {
+                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
+//                if (false) {
                     incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
                     incorrect.start();
                     incorrect.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -176,12 +178,39 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         }.start();
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+//            Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
+    private Boolean exit = false;
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
+    public void onBackPressed() {
+        if (exit) {
+            android.os.Process.killProcess(android.os.Process.myPid());
+////            finish(); // finish activity
+//            Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
         }
-        return super.onKeyDown(keyCode, event);
+
     }
 
     public void finishGame() {

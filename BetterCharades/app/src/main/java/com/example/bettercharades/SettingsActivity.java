@@ -54,15 +54,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
-//        soundSwitch = (Switch) findViewById(R.id.soundSwitch);
-//        soundSwitch.setChecked(soundOn);
-//        soundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                soundOn = isChecked;
-//                writeSettings();
-//            }
-//        });
+        soundSwitch = (Switch) findViewById(R.id.soundSwitch);
+        soundSwitch.setChecked(soundOn);
+        soundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                soundOn = isChecked;
+                writeSettings();
+            }
+        });
 
         final List<String> times = new ArrayList<String>();
         times.add("30 seconds");

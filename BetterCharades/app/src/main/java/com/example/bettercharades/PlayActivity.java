@@ -229,6 +229,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         finishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                android.os.Process.killProcess(android.os.Process.myPid());
                 Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

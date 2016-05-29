@@ -79,10 +79,9 @@ public class MyCategories extends AppCompatActivity {
 //            categoryList.add("No categories available\nCreate or download categories to start playing");
 //        }
 
-        String[] categories = (String[]) categoryList.toArray(new String[0]);
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                android.R.id.text1, categories);
+                android.R.id.text1, categoryList);
 
         categoryListView = (ListView) findViewById(R.id.myCategoriesList);
         categoryListView.setAdapter(adapter);
@@ -150,6 +149,9 @@ public class MyCategories extends AppCompatActivity {
                 deleteCategory(categoryList.get(info.position));
                 adapter.notifyDataSetChanged();
                 break;
+            case R.id.editCategoryItem:
+                editCategory(categoryList.get(info.position));
+                adapter.notifyDataSetChanged();
         }
 
         return super.onContextItemSelected(item);
@@ -186,10 +188,10 @@ public class MyCategories extends AppCompatActivity {
             List<String> itemList = itemList(categoryString);
             mCategoryList.child(categoryString).setValue(itemList.size());
             mCategories.child(categoryString).setValue(itemList);
-            //return to home screen
-            Intent intent = new Intent(MyCategories.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+//            //return to home screen
+//            Intent intent = new Intent(MyCategories.this, HomeActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
         }
     }
 
@@ -201,8 +203,14 @@ public class MyCategories extends AppCompatActivity {
         boolean deleted = file.delete();
         deleted = categoryList.remove(categoryString);
         Log.e("File deleted", Boolean.toString(deleted));
-        Intent intent = new Intent(MyCategories.this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+//        Intent intent = new Intent(MyCategories.this, HomeActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+    }
+
+    public void editCategory(String categoryString) {
+        Intent editIntent = new Intent(MyCategories.this, EditCategoryActivity.class);
+        editIntent.putExtra("CATEGORY_NAME", categoryString);
+        startActivity(editIntent);
     }
 }

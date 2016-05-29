@@ -86,7 +86,6 @@ public class HomeActivity extends AppCompatActivity {
                     "Bolt\n" +
                     "The Princess And The Frog\n" +
                     "Tangled\n" +
-                    "The Pooh Winnie The Pooh\n" +
                     "Big Hero 6\n" +
                     "Frozen\n" +
                     "The Great Mouse Detective\n" +

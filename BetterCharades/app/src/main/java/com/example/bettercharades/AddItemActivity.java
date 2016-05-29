@@ -65,7 +65,7 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(getApplicationContext(), "Created category \"" + title + "\""
+                Toast.makeText(getApplicationContext(), "Created Category \"" + title + "\""
                         , Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AddItemActivity.this, HomeActivity.class);

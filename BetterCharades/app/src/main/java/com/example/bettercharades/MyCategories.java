@@ -87,16 +87,19 @@ public class MyCategories extends AppCompatActivity {
         categoryListView = (ListView) findViewById(R.id.myCategoriesList);
         categoryListView.setAdapter(adapter);
 
+        registerForContextMenu(categoryListView);
+
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                String categoryString = (String) parent.getItemAtPosition(position);
-                uploadCategory(categoryString);
+
+                parent.showContextMenuForChild(view);
+//                String categoryString = (String) parent.getItemAtPosition(position);
+//                uploadCategory(categoryString);
             }
         });
 
-        registerForContextMenu(categoryListView);
 
         mRootReef = FirebaseDatabase.getInstance().getReference();
         mCategories = mRootReef.child("categories");
@@ -121,11 +124,18 @@ public class MyCategories extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_my_category, menu);
+
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        int itemID = info.position;
+        menu.setHeaderTitle(categoryList.get(itemID));
     }
 
     @Override

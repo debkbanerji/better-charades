@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,16 +82,16 @@ public class DownloadCategoryActivity extends AppCompatActivity {
     }
 
     public void downloadCategory(String title) {
-        DatabaseReference categoryReference = mRootReef.child("categories").child(title);
         final String category = title;
+        Toast.makeText(getApplicationContext(), "Starting download: \"" + category + "\""
+                , Toast.LENGTH_SHORT).show();
+        DatabaseReference categoryReference = mRootReef.child("categories").child(title);
+
 
         categoryReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> items = (List<String>) dataSnapshot.getValue();
-                Log.e("Found items", items.toString());
-                Toast.makeText(getApplicationContext(), "Starting download: \"" + category + "\""
-                        , Toast.LENGTH_SHORT).show();
                 try {
                     FileOutputStream fos = openFileOutput(category + ".category.txt", Context.MODE_PRIVATE);
                     for (String item : items) {

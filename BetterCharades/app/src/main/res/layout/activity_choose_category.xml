@@ -22,7 +22,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="Choose Category"
-            android:textSize="25sp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/uploadCategoryItem"
+        android:title="Upload category"/>
+    <item android:id="@+id/editCategoryItem"
+        android:title="Edit category"/>
+    <item android:id="@+id/deleteCategoryItem"
+        android:title="Delete category"/>
+</menu>

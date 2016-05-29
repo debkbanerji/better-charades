@@ -29,7 +29,8 @@
         <activity android:name=".AddItemActivity" />
         <activity android:name=".UploadCategoryActivity" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".MyCategories"></activity>
     </application>
 
 </manifest>

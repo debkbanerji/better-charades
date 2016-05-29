@@ -39,10 +39,18 @@
         android:text="Upload Categories" />
 
     <Button
-        android:id="@+id/downloadButton"
+        android:id="@+id/myCategoriesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/uploadButton"
+        android:layout_centerHorizontal="true"
+        android:text="My Categories" />
+
+    <Button
+        android:id="@+id/downloadButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myCategoriesButton"
         android:layout_centerHorizontal="true"
         android:text="Download Categories" />
 

@@ -14,6 +14,7 @@ public class ChooseActivity extends AppCompatActivity {
     Button createButton;
     Button downloadButton;
     Button uploadButton;
+    Button myCategoriesButton;
     Button helpButton;
     Button settingsButton;
 
@@ -30,6 +31,7 @@ public class ChooseActivity extends AppCompatActivity {
         downloadButton = (Button) findViewById(R.id.downloadButton);
         helpButton = (Button) findViewById(R.id.helpButton);
         settingsButton = (Button) findViewById(R.id.settingsButton);
+        myCategoriesButton = (Button) findViewById(R.id.myCategoriesButton);
 
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,13 @@ public class ChooseActivity extends AppCompatActivity {
             }
         });
 
+        myCategoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myCategoriesIntent = new Intent(ChooseActivity.this, MyCategories.class);
+                startActivity(myCategoriesIntent);
+            }
+        });
     }
 
 //    @Override

@@ -101,23 +101,27 @@ public class UploadCategoryActivity extends AppCompatActivity {
                                     long id) {
                 String categoryString = (String) parent.getItemAtPosition(position);
 
-                if (dataBaseCategories.contains(categoryString)) {
-                    Toast.makeText(getApplicationContext(), "\"" + categoryString + "\" already in database"
-                            , Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Starting upload: \"" + categoryString + "\""
-                            , Toast.LENGTH_SHORT).show();
-                    List<String> itemList = itemList(categoryString);
-                    mCategoryList.child(categoryString).setValue(itemList.size());
-                    mCategories.child(categoryString).setValue(itemList);
-                    //return to home screen
-                    Intent intent = new Intent(UploadCategoryActivity.this, ChooseActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+                uploadCategory(categoryString);
             }
         });
 //        generateTestCategory();
+    }
+
+    public void uploadCategory(String categoryString) {
+        if (dataBaseCategories.contains(categoryString)) {
+            Toast.makeText(getApplicationContext(), "\"" + categoryString + "\" already in database"
+                    , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Starting upload: \"" + categoryString + "\""
+                    , Toast.LENGTH_SHORT).show();
+            List<String> itemList = itemList(categoryString);
+            mCategoryList.child(categoryString).setValue(itemList.size());
+            mCategories.child(categoryString).setValue(itemList);
+            //return to home screen
+            Intent intent = new Intent(UploadCategoryActivity.this, ChooseActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     public List<String> itemList(String title) {

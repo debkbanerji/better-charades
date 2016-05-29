@@ -1,19 +1,17 @@
 package com.example.bettercharades;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 public class AddItemActivity extends AppCompatActivity {
@@ -67,6 +65,10 @@ public class AddItemActivity extends AppCompatActivity {
                         Log.e("File IO Error", e.getMessage());
                     }
                 }
+
+                Toast.makeText(getApplicationContext(), "Created category \"" + title + "\""
+                        , Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(AddItemActivity.this, ChooseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

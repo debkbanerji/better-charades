@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,14 +37,14 @@ import java.util.regex.Pattern;
 
 public class MyCategories extends AppCompatActivity {
 
-    ListView categoryListView;
+    private ListView categoryListView;
     private DatabaseReference mRootReef;
     private DatabaseReference mCategories;
     private DatabaseReference mCategoryList;
     private Set dataBaseCategories;
     private List<String> categoryList;
     private ArrayAdapter<String> adapter;
-
+    private Button createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,17 @@ public class MyCategories extends AppCompatActivity {
         categoryListView = (ListView) findViewById(R.id.myCategoriesList);
         dataBaseCategories = new HashSet();
 
+        createButton = (Button) findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createIntent = new Intent(MyCategories.this, CreateCategoryActivity.class);
+                startActivity(createIntent);
+            }
+        });
+
+
         String[] fileList = fileList();
-        ;
         categoryList = new LinkedList<>();
 
         String rgx = "(.+).category.txt";
@@ -65,10 +75,9 @@ public class MyCategories extends AppCompatActivity {
             }
         }
 
-        if (categoryList.isEmpty()) {
-            TextView headingText = (TextView) findViewById(R.id.textView9);
-            headingText.setText("No categories available\nCreate or download categories to start playing");
-        }
+//        if (categoryList.isEmpty()) {
+//            categoryList.add("No categories available\nCreate or download categories to start playing");
+//        }
 
         String[] categories = (String[]) categoryList.toArray(new String[0]);
         adapter = new ArrayAdapter<String>(this,

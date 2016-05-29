@@ -1,19 +1,21 @@
 package com.example.bettercharades;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.FileOutputStream;
 
 
 public class ChooseActivity extends AppCompatActivity {
 
     Button playButton;
-    Button createButton;
     Button downloadButton;
-    Button uploadButton;
     Button myCategoriesButton;
     Button helpButton;
     Button settingsButton;
@@ -26,8 +28,6 @@ public class ChooseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         playButton = (Button) findViewById(R.id.playButton);
-        createButton = (Button) findViewById(R.id.createButton);
-        uploadButton = (Button) findViewById(R.id.uploadButton);
         downloadButton = (Button) findViewById(R.id.downloadButton);
         helpButton = (Button) findViewById(R.id.helpButton);
         settingsButton = (Button) findViewById(R.id.settingsButton);
@@ -39,22 +39,6 @@ public class ChooseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent playIntent = new Intent(ChooseActivity.this, ChooseCategoryActivity.class);
                 startActivity(playIntent);
-            }
-        });
-
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent createIntent = new Intent(ChooseActivity.this, CreateCategoryActivity.class);
-                startActivity(createIntent);
-            }
-        });
-
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent uploadIntent = new Intent(ChooseActivity.this, UploadCategoryActivity.class);
-                startActivity(uploadIntent);
             }
         });
 
@@ -88,8 +72,78 @@ public class ChooseActivity extends AppCompatActivity {
                 startActivity(myCategoriesIntent);
             }
         });
+//                generateTestCategory();
     }
 
+    public void generateTestCategory() {
+
+
+        //test code
+        //use this to create categories easily for testing
+        try {
+            String title = "Disney Movies";
+            String result = "Meet The Robinsons\n" +
+                    "Bolt\n" +
+                    "The Princess And The Frog\n" +
+                    "Tangled\n" +
+                    "The Pooh Winnie The Pooh\n" +
+                    "Big Hero 6\n" +
+                    "Frozen\n" +
+                    "The Great Mouse Detective\n" +
+                    "Oliver & Company\n" +
+                    "The Little Mermaid\n" +
+                    "The Rescuers Down Under\n" +
+                    "Beauty And The Beast\n" +
+                    "Aladdin\n" +
+                    "The Lion King\n" +
+                    "Pocahontas\n" +
+                    "The Hunchback Of Notre Dame\n" +
+                    "Hercules\n" +
+                    "Mulan\n" +
+                    "Tarzan\n" +
+                    "Dinosaur\n" +
+                    "The Emperor's New Groove\n" +
+                    "Atlantis: The Lost Empire\n" +
+                    "Lilo & Stitch\n" +
+                    "Treasure Planet\n" +
+                    "Brother Bear\n" +
+                    "Home On The Range\n" +
+                    "Chicken Little\n" +
+                    "Snow White And The Seven Dwarfs\n" +
+                    "Pinocchio\n" +
+                    "Fantasia\n" +
+                    "Dumbo\n" +
+                    "Bambi\n" +
+                    "Saludos Amigos\n" +
+                    "The Three Caballeros\n" +
+                    "Make Mine Music\n" +
+                    "Fun And Fancy Free\n" +
+                    "Melody Time\n" +
+                    "The Adventures Of Ichabod And Mr. Toad\n" +
+                    "Cinderella\n" +
+                    "Wreck-It Ralph\n" +
+                    "Alice In Wonderland\n" +
+                    "Peter Pan\n" +
+                    "Lady And The Tramp\n" +
+                    "Sleeping Beauty\n" +
+                    "One Hundred And One Dalmatians\n" +
+                    "The Sword In The Stone\n" +
+                    "The Jungle Book\n" +
+                    "The Aristocats\n" +
+                    "Robin Hood\n" +
+                    "The Many Adventures Of Winnie The Pooh\n" +
+                    "The Rescuers\n" +
+                    "The Fox And The Hound\n" +
+                    "The Black Cauldron\n" +
+                    "Zootopia\n" +
+                    "Gigantic";
+            FileOutputStream fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
+            fos.write(result.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            Log.e("File I/O error", e.getMessage());
+        }
+    }
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
@@ -111,4 +165,5 @@ public class ChooseActivity extends AppCompatActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
 }

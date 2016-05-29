@@ -73,9 +73,9 @@ public class DownloadCategoryActivity extends AppCompatActivity {
                 if (!categoryString.equals("Connecting to database...")) {
                     downloadCategory(categoryString);
                     //return to home screen
-                    Intent intent = new Intent(DownloadCategoryActivity.this, ChooseActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+//                    Intent intent = new Intent(DownloadCategoryActivity.this, ChooseActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
                 }
             }
         });

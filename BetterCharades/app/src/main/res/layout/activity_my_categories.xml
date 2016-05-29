@@ -10,18 +10,36 @@
     tools:context="com.example.bettercharades.MyCategories">
 
     <TextView
+        android:id="@+id/myCategoriesHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="My Categories"
-        android:id="@+id/textView9"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="My Categories"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ListView
+    <TextView
+        android:id="@+id/myCategoriesDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/myCategoriesHeading"
+        android:layout_centerHorizontal="true"
+        android:text="@string/my_categories_prompt" />
+
+    <Button
+        android:id="@+id/createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Create Category" />
+
+    <ListView
         android:id="@+id/myCategoriesList"
-        android:layout_below="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/createButton"
+        android:layout_below="@+id/myCategoriesDescription"
         android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

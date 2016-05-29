@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -181,7 +180,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
 //        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//            Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+//            Intent intent = new Intent(PlayActivity.this, HomeActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
 //            finish();
@@ -195,7 +194,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         if (exit) {
             android.os.Process.killProcess(android.os.Process.myPid());
 ////            finish(); // finish activity
-//            Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+//            Intent intent = new Intent(PlayActivity.this, HomeActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
         } else {
@@ -230,7 +229,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 android.os.Process.killProcess(android.os.Process.myPid());
-                Intent intent = new Intent(PlayActivity.this, ChooseActivity.class);
+                Intent intent = new Intent(PlayActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

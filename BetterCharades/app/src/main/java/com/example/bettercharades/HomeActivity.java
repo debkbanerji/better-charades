@@ -12,7 +12,7 @@ import android.widget.Button;
 import java.io.FileOutputStream;
 
 
-public class ChooseActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     Button playButton;
     Button downloadButton;
@@ -23,7 +23,7 @@ public class ChooseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose);
+        setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,7 +37,7 @@ public class ChooseActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playIntent = new Intent(ChooseActivity.this, ChooseCategoryActivity.class);
+                Intent playIntent = new Intent(HomeActivity.this, ChooseCategoryActivity.class);
                 startActivity(playIntent);
             }
         });
@@ -45,7 +45,7 @@ public class ChooseActivity extends AppCompatActivity {
         downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent downloadIntent = new Intent(ChooseActivity.this, DownloadCategoryActivity.class);
+                Intent downloadIntent = new Intent(HomeActivity.this, DownloadCategoryActivity.class);
                 startActivity(downloadIntent);
             }
         });
@@ -53,14 +53,14 @@ public class ChooseActivity extends AppCompatActivity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent helpIntent = new Intent(ChooseActivity.this, HelpActivity.class);
+                Intent helpIntent = new Intent(HomeActivity.this, HelpActivity.class);
                 startActivity(helpIntent);
             }
         });
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingsIntent = new Intent(ChooseActivity.this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(settingsIntent);
             }
         });
@@ -68,7 +68,7 @@ public class ChooseActivity extends AppCompatActivity {
         myCategoriesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myCategoriesIntent = new Intent(ChooseActivity.this, MyCategories.class);
+                Intent myCategoriesIntent = new Intent(HomeActivity.this, MyCategories.class);
                 startActivity(myCategoriesIntent);
             }
         });

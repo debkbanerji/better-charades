@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -145,6 +145,11 @@ public class MyCategories extends AppCompatActivity {
             case R.id.uploadCategoryItem:
                 uploadCategory(categoryList.get(info.position));
                 adapter.notifyDataSetChanged();
+                break;
+            case R.id.deleteCategoryItem:
+                deleteCategory(categoryList.get(info.position));
+                adapter.notifyDataSetChanged();
+                break;
         }
 
         return super.onContextItemSelected(item);
@@ -182,9 +187,22 @@ public class MyCategories extends AppCompatActivity {
             mCategoryList.child(categoryString).setValue(itemList.size());
             mCategories.child(categoryString).setValue(itemList);
             //return to home screen
-            Intent intent = new Intent(MyCategories.this, ChooseActivity.class);
+            Intent intent = new Intent(MyCategories.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+    }
+
+    public void deleteCategory(String categoryString) {
+        Toast.makeText(getApplicationContext(), "Deleting \"" + categoryString + "\""
+                , Toast.LENGTH_SHORT).show();
+        File dir = getFilesDir();
+        File file = new File(dir, categoryString + ".category.txt");
+        boolean deleted = file.delete();
+        deleted = categoryList.remove(categoryString);
+        Log.e("File deleted", Boolean.toString(deleted));
+        Intent intent = new Intent(MyCategories.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

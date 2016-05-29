@@ -109,6 +109,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         oldTiltFactor = tiltFactor;
+//        infoText.setText(Integer.toString((int)(event.values[0]*1000)));
     }
 
     @Override
@@ -132,6 +133,8 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+//        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+//        mGyroscope = SensorManager.getOrientation()
         mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
         infoText = (TextView) findViewById(R.id.infoText);
         timeText = (TextView) findViewById(R.id.timeText);

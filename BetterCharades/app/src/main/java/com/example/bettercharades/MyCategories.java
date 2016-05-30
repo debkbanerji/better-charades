@@ -124,7 +124,6 @@ public class MyCategories extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -132,7 +131,7 @@ public class MyCategories extends AppCompatActivity {
         inflater.inflate(R.menu.menu_my_category, menu);
 
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         int itemID = info.position;
         menu.setHeaderTitle(categoryList.get(itemID));
     }

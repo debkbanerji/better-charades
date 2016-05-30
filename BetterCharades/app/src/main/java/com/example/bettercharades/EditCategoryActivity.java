@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,14 +70,21 @@ public class EditCategoryActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1, itemList);
         itemListView.setAdapter(adapter);
+        registerForContextMenu(itemListView);
+
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                parent.showContextMenuForChild(view);
+            }
+        });
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 writeToFile();
-                Intent intent = new Intent(EditCategoryActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
             }
         });
 
@@ -93,6 +104,30 @@ public class EditCategoryActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_delete_item, menu);
+
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        int itemID = info.position;
+        menu.setHeaderTitle(itemList.get(itemID));
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.deleteItem:
+                itemList.remove(info.position);
+                adapter.notifyDataSetChanged();
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     public void writeToFile() {
         if (!itemList.isEmpty()) {
             try {
@@ -103,9 +138,15 @@ public class EditCategoryActivity extends AppCompatActivity {
                 fos.close();
                 Toast.makeText(getApplicationContext(), "Updated Category \"" + category + "\""
                         , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EditCategoryActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             } catch (Exception e) {
                 //do nothing
             }
+        } else {
+            Toast.makeText(getApplicationContext(), "Category cannot be empty"
+                    , Toast.LENGTH_SHORT).show();
         }
 
     }

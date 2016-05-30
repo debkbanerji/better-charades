@@ -108,6 +108,9 @@ public class DownloadCategoryActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
+            case R.id.downloadFromDatabaseCategory:
+                downloadCategory(categories.get(info.position));
+                break;
             case R.id.deleteDatabaseCategory:
                 String category = categories.get(info.position);
                 categories.remove(info.position);

@@ -6,4 +6,6 @@
     <string name="add_item_prompt">Enter the items you would like to add to your category and press the finish button once you are done</string>
     <string name="my_categories_prompt">Here you can create categories, as well as edit, delete or upload categories you\'ve created.</string>
     <string name="download_prompt">Here you can download categories from the remote database. Note that any categories downloaded from the remote database will replace local categories of the same name.</string>
+    <string name="help_prompt_0">Pick a category, then place your device on your forehead. It\'s up to your friends to help you guess what\'s displayed on the screen - without saying it\'s name. Tilt your device up if you manage to get it right, or down to pass.</string>
+    <string name="help_prompt_1">Charades++ lets you create your own categories, as well as share your categories and download categories others have created.</string>
 </resources>

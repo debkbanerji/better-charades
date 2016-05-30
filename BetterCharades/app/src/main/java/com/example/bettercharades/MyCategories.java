@@ -201,7 +201,7 @@ public class MyCategories extends AppCompatActivity {
         File file = new File(dir, categoryString + ".category.txt");
         boolean deleted = file.delete();
         deleted = categoryList.remove(categoryString);
-        Log.e("File deleted", Boolean.toString(deleted));
+//        Log.e("File deleted", Boolean.toString(deleted));
 //        Intent intent = new Intent(MyCategories.this, HomeActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        startActivity(intent);

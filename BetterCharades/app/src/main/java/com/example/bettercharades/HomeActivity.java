@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(myCategoriesIntent);
             }
         });
-//                generateTestCategory();
+                generateTestCategory();
     }
 
     public void generateTestCategory() {
@@ -81,61 +81,102 @@ public class HomeActivity extends AppCompatActivity {
         //test code
         //use this to create categories easily for testing
         try {
-            String title = "Disney Movies";
-            String result = "Meet The Robinsons\n" +
-                    "Bolt\n" +
-                    "The Princess And The Frog\n" +
-                    "Tangled\n" +
-                    "Big Hero 6\n" +
-                    "Frozen\n" +
-                    "The Great Mouse Detective\n" +
-                    "Oliver & Company\n" +
-                    "The Little Mermaid\n" +
-                    "The Rescuers Down Under\n" +
-                    "Beauty And The Beast\n" +
-                    "Aladdin\n" +
-                    "The Lion King\n" +
-                    "Pocahontas\n" +
-                    "The Hunchback Of Notre Dame\n" +
-                    "Hercules\n" +
-                    "Mulan\n" +
-                    "Tarzan\n" +
-                    "Dinosaur\n" +
-                    "The Emperor's New Groove\n" +
-                    "Atlantis: The Lost Empire\n" +
-                    "Lilo & Stitch\n" +
-                    "Treasure Planet\n" +
-                    "Brother Bear\n" +
-                    "Home On The Range\n" +
-                    "Chicken Little\n" +
-                    "Snow White And The Seven Dwarfs\n" +
-                    "Pinocchio\n" +
-                    "Fantasia\n" +
-                    "Dumbo\n" +
-                    "Bambi\n" +
-                    "Saludos Amigos\n" +
-                    "The Three Caballeros\n" +
-                    "Make Mine Music\n" +
-                    "Fun And Fancy Free\n" +
-                    "Melody Time\n" +
-                    "The Adventures Of Ichabod And Mr. Toad\n" +
-                    "Cinderella\n" +
-                    "Wreck-It Ralph\n" +
-                    "Alice In Wonderland\n" +
-                    "Peter Pan\n" +
-                    "Lady And The Tramp\n" +
-                    "Sleeping Beauty\n" +
-                    "One Hundred And One Dalmatians\n" +
-                    "The Sword In The Stone\n" +
-                    "The Jungle Book\n" +
-                    "The Aristocats\n" +
-                    "Robin Hood\n" +
-                    "The Many Adventures Of Winnie The Pooh\n" +
-                    "The Rescuers\n" +
-                    "The Fox And The Hound\n" +
-                    "The Black Cauldron\n" +
-                    "Zootopia\n" +
-                    "Gigantic";
+            String title = "Taylor Swift Music";
+            String result = "22\n" +
+                    "A Perfectly Good Heart\n" +
+                    "A Place In This World\n" +
+                    "All Too Well\n" +
+                    "All You Had To Do Was Stay\n" +
+                    "Back to December\n" +
+                    "Bad Blood\n" +
+                    "Beautiful Eyes\n" +
+                    "Begin Again\n" +
+                    "Better Than Revenge\n" +
+                    "Blank Space\n" +
+                    "Breathe\n" +
+                    "Change\n" +
+                    "Christmas Must Be Something More\n" +
+                    "Christmases When You Were Mine\n" +
+                    "Clean\n" +
+                    "Cold As You\n" +
+                    "Come Back... Be Here\n" +
+                    "Come in With the Rain\n" +
+                    "Crazier\n" +
+                    "Dear John\n" +
+                    "Enchanted\n" +
+                    "Eyes Open\n" +
+                    "Fearless\n" +
+                    "Fifteen\n" +
+                    "Forever & Always\n" +
+                    "Girl At Home\n" +
+                    "Haunted\n" +
+                    "Hey Stephen\n" +
+                    "Holy Ground\n" +
+                    "How You Get the Girl\n" +
+                    "I Almost Do\n" +
+                    "I Heart Question Mark\n" +
+                    "I Knew You Were Trouble\n" +
+                    "I Know Places\n" +
+                    "I Wish You Would\n" +
+                    "I'd Lie\n" +
+                    "If This Was a Movie\n" +
+                    "I'm Only Me When I'm with You\n" +
+                    "Innocent\n" +
+                    "Invisible\n" +
+                    "Jump Then Fall\n" +
+                    "Last Kiss\n" +
+                    "Long Live\n" +
+                    "Love Story\n" +
+                    "Mary's Song (Oh my, my, my)\n" +
+                    "Mean\n" +
+                    "Mine\n" +
+                    "Never Grow Up\n" +
+                    "New Romantics\n" +
+                    "Our Song\n" +
+                    "Ours\n" +
+                    "Out of the Woods\n" +
+                    "Permanent Marker\n" +
+                    "Picture to Burn\n" +
+                    "Red\n" +
+                    "Ronan\n" +
+                    "Sad Beautiful Tragic\n" +
+                    "Safe & Sound\n" +
+                    "Shake It Off\n" +
+                    "Should've Said No\n" +
+                    "Sparks Fly\n" +
+                    "Speak Now\n" +
+                    "Starlight\n" +
+                    "State of Grace\n" +
+                    "Stay Beautiful\n" +
+                    "Stay Stay Stay\n" +
+                    "Style\n" +
+                    "Superman\n" +
+                    "Superstar\n" +
+                    "Teardrops on My Guitar\n" +
+                    "Tell Me Why\n" +
+                    "The Best Day\n" +
+                    "The Lucky One\n" +
+                    "The Moment I Knew\n" +
+                    "The Other Side Of The Door\n" +
+                    "The Outside\n" +
+                    "The Story of Us\n" +
+                    "The Way I Loved You\n" +
+                    "This Love\n" +
+                    "Tied Together with a Smile\n" +
+                    "Tim McGraw\n" +
+                    "Today Was a Fairytale\n" +
+                    "Treacherous\n" +
+                    "Untouchable\n" +
+                    "We Are Never Ever Getting Back Together\n" +
+                    "Welcome To New York\n" +
+                    "White Horse\n" +
+                    "Wildest Dreams\n" +
+                    "Wonderland\n" +
+                    "You Are In Love\n" +
+                    "You Belong With Me\n" +
+                    "You're Not Sorry\n" +
+                    "Everything Has Changed\n" +
+                    "The Last Timec";
             FileOutputStream fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
             fos.write(result.getBytes());
             fos.close();

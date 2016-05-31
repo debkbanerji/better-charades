@@ -173,7 +173,7 @@ public class MyCategories extends AppCompatActivity {
             Log.e("Error", e.getMessage());
             return result;
         }
-        Collections.shuffle(result, new Random(System.currentTimeMillis()));
+        Collections.sort(result);
         return result;
     }
 

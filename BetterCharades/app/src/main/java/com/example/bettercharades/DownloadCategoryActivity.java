@@ -58,14 +58,15 @@ public class DownloadCategoryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> dataMap = (Map<String, String>) dataSnapshot.getValue();
-                dataBaseCategories = (dataMap.keySet());
-                categories = new ArrayList(dataBaseCategories);
-                adapter = new ArrayAdapter<String>(getBaseContext(),
-                        android.R.layout.simple_list_item_1,
-                        android.R.id.text1, categories);
-                lv.setAdapter(adapter);
-                registerForContextMenu(lv);
-
+                if (dataMap != null) {
+                    dataBaseCategories = (dataMap.keySet());
+                    categories = new ArrayList(dataBaseCategories);
+                    adapter = new ArrayAdapter<String>(getBaseContext(),
+                            android.R.layout.simple_list_item_1,
+                            android.R.id.text1, categories);
+                    lv.setAdapter(adapter);
+                    registerForContextMenu(lv);
+                }
                 downloadHelpText.setText(R.string.download_prompt);
             }
 

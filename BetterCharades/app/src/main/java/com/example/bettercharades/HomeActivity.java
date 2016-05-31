@@ -95,7 +95,6 @@ public class HomeActivity extends AppCompatActivity {
                     "Blank Space\n" +
                     "Breathe\n" +
                     "Change\n" +
-                    "Christmas Must Be Something More\n" +
                     "Christmases When You Were Mine\n" +
                     "Clean\n" +
                     "Cold As You\n" +
@@ -176,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
                     "You Belong With Me\n" +
                     "You're Not Sorry\n" +
                     "Everything Has Changed\n" +
-                    "The Last Timec";
+                    "The Last Time";
             FileOutputStream fos = openFileOutput(title + ".category.txt", Context.MODE_PRIVATE);
             fos.write(result.getBytes());
             fos.close();

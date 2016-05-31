@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(myCategoriesIntent);
             }
         });
-                generateTestCategory();
+//                generateTestCategory();
     }
 
     public void generateTestCategory() {

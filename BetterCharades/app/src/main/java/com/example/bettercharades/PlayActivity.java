@@ -36,7 +36,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     Sensor mGyroscope;
     TextView infoText;
     TextView timeText;
-    //    TextView currentCategoryText;
     RelativeLayout background;
     String title;
     MediaPlayer correct;
@@ -47,6 +46,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     List<ResultPair> results;
     ListView resultView;
     List<String> questions;
+    float inversionFactor;
     int correctItems;
     int totalItems;
     int currentItem;
@@ -56,11 +56,12 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int tiltThreshold = 20;
+        float tiltThreshold = 7.0f;
         tiltFactor = 0;
-        if (Math.abs(event.values[0] * 100) < tiltThreshold) {
+        float rawValue = event.values[2] * inversionFactor;
+        if (rawValue < -tiltThreshold) {
             tiltFactor = -1;
-        } else if (Math.abs(event.values[0] * 100) > (100 - tiltThreshold)) {
+        } else if (rawValue > tiltThreshold) {
             tiltFactor = 1;
         }
 
@@ -74,7 +75,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 totalItems++;
                 correctItems++;
                 if (getIntent().getBooleanExtra("SOUND_ON", true)) {
-//                if (false) {
                     correct = MediaPlayer.create(PlayActivity.this, R.raw.correct);
                     correct.start();
                     correct.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -83,7 +83,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
                         }
 
-                        ;
+
                     });
                 }
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), true));
@@ -92,7 +92,6 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
                 background.setBackgroundColor(ContextCompat.getColor(PlayActivity.this, R.color.colorFailure));
                 totalItems++;
                 if (getIntent().getBooleanExtra("SOUND_ON", true)) {
-//                if (false) {
                     incorrect = MediaPlayer.create(PlayActivity.this, R.raw.incorrect);
                     incorrect.start();
                     incorrect.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -101,7 +100,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
                         }
 
-                        ;
+
                     });
                 }
                 results.add(new ResultPair(questions.get(currentItem % questions.size()), false));
@@ -109,7 +108,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         oldTiltFactor = tiltFactor;
-//        infoText.setText(Integer.toString((int)(event.values[0]*1000)));
+//        infoText.setText(Float.toString(rawValue));
     }
 
     @Override
@@ -119,26 +118,23 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final Intent intent = getIntent();
 
-//        Log.e("SOUND", Boolean.toString(getIntent().getBooleanExtra("SOUND_ON", true)));
 
         try {
             View decorView = getWindow().getDecorView();
-            // Hide the status bar.
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
         } catch (Exception e) {
-            //do nothing
         }
 
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+//        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 //        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 //        mGyroscope = SensorManager.getOrientation()
         mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
         infoText = (TextView) findViewById(R.id.infoText);
         timeText = (TextView) findViewById(R.id.timeText);
-//        currentCategoryText = (TextView) findViewById(R.id.currentCategoryText);
         background = (RelativeLayout) findViewById(R.id.playBackground);
         resultView = (ListView) findViewById(R.id.resultView);
         finishGame = (Button) findViewById(R.id.finishGameButton);
@@ -151,7 +147,8 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
         title = intent.getStringExtra("CATEGORY");
         time = intent.getIntExtra("TIME", 30100);
-//        currentCategoryText.setText(title);
+        inversionFactor = intent.getIntExtra("TILT_FACTOR", 1);
+
         questions = questionList();
 
         new CountDownTimer(5000, 1000) {
@@ -180,26 +177,12 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
         }.start();
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//            Intent intent = new Intent(PlayActivity.this, HomeActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//            finish();
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-
     private Boolean exit = false;
+
     @Override
     public void onBackPressed() {
         if (exit) {
             android.os.Process.killProcess(android.os.Process.myPid());
-////            finish(); // finish activity
-//            Intent intent = new Intent(PlayActivity.this, HomeActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
         } else {
             Toast.makeText(this, "Press Back again to Exit.",
                     Toast.LENGTH_SHORT).show();

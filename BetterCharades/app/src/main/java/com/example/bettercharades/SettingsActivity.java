@@ -1,9 +1,8 @@
 package com.example.bettercharades;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-//import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,12 +17,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+//import android.util.Log;
+
 public class SettingsActivity extends AppCompatActivity {
 
     public Spinner timePicker;
     public int timeIndex;
     public boolean soundOn;
+    public boolean invertTilt;
     public Switch soundSwitch;
+    public Switch tiltSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +41,18 @@ public class SettingsActivity extends AppCompatActivity {
 
             timeIndex = Integer.parseInt(reader.readLine());
             soundOn = Boolean.parseBoolean(reader.readLine());
+            invertTilt = Boolean.parseBoolean(reader.readLine());
 
         } catch (Exception e) {
 //            Log.e("Settings error", e.getMessage());
             timeIndex = 0;
             soundOn = true;
+            invertTilt = false;
             try {
                 FileOutputStream fos = openFileOutput("settings.txt", Context.MODE_PRIVATE);
                 fos.write((Integer.toString(timeIndex)+'\n').getBytes());
-                fos.write(Boolean.toString(soundOn).getBytes());
+                fos.write((Boolean.toString(soundOn)+'\n').getBytes());
+                fos.write(Boolean.toString(invertTilt).getBytes());
                 fos.close();
 
             } catch (Exception e2) {
@@ -60,6 +66,16 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 soundOn = isChecked;
+                writeSettings();
+            }
+        });
+
+        tiltSwitch = (Switch) findViewById(R.id.invertSwitch);
+        tiltSwitch.setChecked(invertTilt);
+        tiltSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                invertTilt = isChecked;
                 writeSettings();
             }
         });
@@ -102,7 +118,9 @@ public class SettingsActivity extends AppCompatActivity {
 //            Log.e("Time index", Integer.toString(timeIndex));
             FileOutputStream fos = openFileOutput("settings.txt", Context.MODE_PRIVATE);
             fos.write((Integer.toString(timeIndex)+'\n').getBytes());
-            fos.write(Boolean.toString(soundOn).getBytes());
+            fos.write((Boolean.toString(soundOn)+'\n').getBytes());
+//            Log.e("INVERT", Boolean.toString(invertTilt));
+            fos.write(Boolean.toString(invertTilt).getBytes());
             fos.close();
         } catch (Exception e) {
             //do nothing;

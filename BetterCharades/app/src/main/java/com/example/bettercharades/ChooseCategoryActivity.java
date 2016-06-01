@@ -3,18 +3,15 @@ package com.example.bettercharades;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,6 +22,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
     public boolean soundOn;
     public int timeIndex;
     public int time;
+    boolean invertTilt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +59,13 @@ public class ChooseCategoryActivity extends AppCompatActivity {
 
             timeIndex = Integer.parseInt(reader.readLine());
             soundOn = Boolean.parseBoolean(reader.readLine());
+            invertTilt = Boolean.parseBoolean(reader.readLine());
 
         } catch (Exception e) {
 //            Log.e("Settings error", e.getMessage());
             timeIndex = 0;
             soundOn = true;
+            invertTilt = false;
         }
 
         if (timeIndex == 0) {
@@ -87,6 +87,12 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                 intent.putExtra("CATEGORY", categoryString);
                 intent.putExtra("SOUND_ON", soundOn);
                 intent.putExtra("TIME", time);
+                if (invertTilt) {
+                    intent.putExtra("TILT_FACTOR", -1);
+
+                } else {
+                    intent.putExtra("TILT_FACTOR", 1);
+                }
                 startActivity(intent);
             }
         });

@@ -29,6 +29,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black" />
 
+    <Switch
+        android:id="@+id/invertSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/soundSwitch"
+        android:text="Invert Tilt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
 
 
     <TextView
@@ -37,7 +47,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Time limit:"
-        android:layout_below="@id/soundSwitch"
+        android:layout_below="@id/invertSwitch"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black"
         android:layout_alignParentLeft="true"

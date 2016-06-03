@@ -1,5 +1,5 @@
 # Charades++
-Charades++ is a party game built for the Android platform. It sets itself apart from similar games as it is crowd sourced, allowing users to create their own content as well as easily share it with others, alleviating the lull in content that tends to plague many other games.
+Charades++ is a party game built for the Android platform. It sets itself apart from similar games as it is crowd-sourced, allowing users to create their own content as well as easily share it with others, alleviating the lull in content that tends to plague many other games.
 
 Screenshots:
 ![Charades++](/Screenshots/Screenshot_1.png?raw=true)

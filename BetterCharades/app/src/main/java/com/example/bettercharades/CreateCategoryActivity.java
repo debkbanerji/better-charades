@@ -23,9 +23,11 @@ public class CreateCategoryActivity extends AppCompatActivity {
         createCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createIntent = new Intent(CreateCategoryActivity.this, EditCategoryActivity.class);
-                createIntent.putExtra("CATEGORY_NAME", categoryName.getText().toString());
-                startActivity(createIntent);
+                if (!categoryName.getText().toString().equals("")) {
+                    Intent createIntent = new Intent(CreateCategoryActivity.this, EditCategoryActivity.class);
+                    createIntent.putExtra("CATEGORY_NAME", categoryName.getText().toString());
+                    startActivity(createIntent);
+                }
             }
         });
     }

@@ -91,13 +91,15 @@ public class EditCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String item = itemText.getText().toString();
-                itemText.setText("");
-                if (!itemList.contains(item)) {
-                    itemList.add(item);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Category already contains \"" + item + "\""
-                            , Toast.LENGTH_SHORT).show();
+                if (!item.equals("")) {
+                    itemText.setText("");
+                    if (!itemList.contains(item)) {
+                        itemList.add(item);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Category already contains \"" + item + "\""
+                                , Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -110,7 +112,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_delete_item, menu);
 
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         int itemID = info.position;
         menu.setHeaderTitle(itemList.get(itemID));
     }

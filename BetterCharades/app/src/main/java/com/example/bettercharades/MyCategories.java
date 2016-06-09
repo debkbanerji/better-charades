@@ -139,6 +139,10 @@ public class MyCategories extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
+            case R.id.playCategoryItem:
+                playCategory(categoryList.get(info.position));
+                adapter.notifyDataSetChanged();
+                break;
             case R.id.uploadCategoryItem:
                 uploadCategory(categoryList.get(info.position));
                 adapter.notifyDataSetChanged();
@@ -194,6 +198,7 @@ public class MyCategories extends AppCompatActivity {
     }
 
     public void deleteCategory(String categoryString) {
+
         Toast.makeText(getApplicationContext(), "Deleting \"" + categoryString + "\""
                 , Toast.LENGTH_SHORT).show();
         File dir = getFilesDir();
@@ -210,5 +215,48 @@ public class MyCategories extends AppCompatActivity {
         Intent editIntent = new Intent(MyCategories.this, EditCategoryActivity.class);
         editIntent.putExtra("CATEGORY_NAME", categoryString);
         startActivity(editIntent);
+    }
+
+    public void playCategory(String categoryString) {
+        boolean soundOn;
+        int timeIndex;
+        int time;
+        boolean invertTilt;
+        try {
+            FileInputStream fis = openFileInput("settings.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+
+            timeIndex = Integer.parseInt(reader.readLine());
+            soundOn = Boolean.parseBoolean(reader.readLine());
+            invertTilt = Boolean.parseBoolean(reader.readLine());
+
+        } catch (Exception e) {
+//            Log.e("Settings error", e.getMessage());
+            timeIndex = 0;
+            soundOn = true;
+            invertTilt = false;
+        }
+
+        if (timeIndex == 0) {
+            time = 30100;
+        } else if (timeIndex == 1) {
+            time = 60100;
+        } else if (timeIndex == 2) {
+            time = 90100;
+        } else {
+            time = 120100;
+        }
+
+        Intent intent = new Intent(MyCategories.this, PlayActivity.class);
+        intent.putExtra("CATEGORY", categoryString);
+        intent.putExtra("SOUND_ON", soundOn);
+        intent.putExtra("TIME", time);
+        if (invertTilt) {
+            intent.putExtra("TILT_FACTOR", -1);
+
+        } else {
+            intent.putExtra("TILT_FACTOR", 1);
+        }
+        startActivity(intent);
     }
 }

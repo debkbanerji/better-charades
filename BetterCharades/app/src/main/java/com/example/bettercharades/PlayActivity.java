@@ -40,6 +40,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
     String title;
     MediaPlayer correct;
     MediaPlayer incorrect;
+    MediaPlayer countdown;
     Button finishGame;
     int tiltFactor;
     int oldTiltFactor;
@@ -155,6 +156,27 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
             public void onTick(long millisUntilFinished) {
                 timeText.setText("Game starts in " + millisUntilFinished / 1000);
+                if (getIntent().getBooleanExtra("SOUND_ON", true)) {
+                    if (millisUntilFinished < 2000) {
+                        countdown = MediaPlayer.create(PlayActivity.this, R.raw.countdown_beep_long);
+                        countdown.start();
+                        countdown.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+
+                            }
+                        });
+                    } else {
+                        countdown = MediaPlayer.create(PlayActivity.this, R.raw.countdown_beep);
+                        countdown.start();
+                        countdown.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+
+                            }
+                        });
+                    }
+                }
             }
 
             public void onFinish() {
@@ -165,6 +187,7 @@ public class PlayActivity extends AppCompatActivity implements SensorEventListen
 
                     public void onTick(long millisUntilFinished) {
                         timeText.setText(millisUntilFinished / 1000 + " seconds");
+
                     }
 
                     public void onFinish() {

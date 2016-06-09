@@ -130,8 +130,8 @@ public class DownloadCategoryActivity extends AppCompatActivity {
 
     public void downloadCategory(String title) {
         final String category = title;
-        Toast.makeText(getApplicationContext(), "Starting download: \"" + category + "\""
-                , Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Starting download: \"" + category + "\""
+//                , Toast.LENGTH_SHORT).show();
         DatabaseReference categoryReference = mRootReef.child("categories").child(title);
 
 
@@ -145,7 +145,7 @@ public class DownloadCategoryActivity extends AppCompatActivity {
                         fos.write((item + "\n").getBytes());
                     }
                     fos.close();
-                    Toast.makeText(getApplicationContext(), "Finished downloading \"" + category + "\""
+                    Toast.makeText(getApplicationContext(), "Downloading \"" + category + "\""
                             , Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     //do nothing

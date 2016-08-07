@@ -8,4 +8,5 @@
     <string name="download_prompt">Here you can download categories from the remote database. Note that any categories downloaded from the remote database will replace local categories of the same name.</string>
     <string name="help_prompt_0">Pick a category, then place your device on your forehead. It\'s up to your friends to help you guess what\'s displayed on the screen - without saying it\'s name. Tilt your device down if you manage to get it right, or up to pass.</string>
     <string name="help_prompt_1">Charades++ lets you create your own categories, as well as share your categories and download categories others have created.</string>
+    <string name="generate_text">Here you can enter a Wikipedia link and the app will attempt to generate a category from the page. Please note that generating a category from a Wikipedia page does not always work, and results vary from page to page. For best results, use a page with a table from which items can be extracted.</string>
 </resources>

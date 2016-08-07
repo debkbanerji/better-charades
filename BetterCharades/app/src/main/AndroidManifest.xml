@@ -29,7 +29,8 @@
         <activity android:name=".HelpActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".MyCategories" />
-        <activity android:name=".EditCategoryActivity"></activity>
+        <activity android:name=".EditCategoryActivity" />
+        <activity android:name=".GenerateActivity"></activity>
     </application>
 
 </manifest>

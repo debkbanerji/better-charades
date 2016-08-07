@@ -17,6 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     Button playButton;
     Button downloadButton;
     Button myCategoriesButton;
+    Button generateCategoryButton;
     Button helpButton;
     Button settingsButton;
 
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         helpButton = (Button) findViewById(R.id.helpButton);
         settingsButton = (Button) findViewById(R.id.settingsButton);
         myCategoriesButton = (Button) findViewById(R.id.myCategoriesButton);
+        generateCategoryButton = (Button) findViewById(R.id.generateButton);
 
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(helpIntent);
             }
         });
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +72,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myCategoriesIntent = new Intent(HomeActivity.this, MyCategories.class);
+                startActivity(myCategoriesIntent);
+            }
+        });
+
+        generateCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myCategoriesIntent = new Intent(HomeActivity.this, GenerateActivity.class);
                 startActivity(myCategoriesIntent);
             }
         });

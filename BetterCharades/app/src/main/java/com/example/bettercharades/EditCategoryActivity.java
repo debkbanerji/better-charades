@@ -57,9 +57,15 @@ public class EditCategoryActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
             String line = reader.readLine();
 
+
+
+
             while (line != null && !line.equals("")) {
                 itemList.add(line);
                 line = reader.readLine();
+//                Log.e("LINE NOT NULL", Boolean.toString(line != null));
+//                Log.e("LINE NOT \"\"", Boolean.toString(!line.equals("")));
+//                Log.e("CAUGHT LINE", line);
             }
         } catch (Exception e) {
             Log.e("Error", e.getMessage());

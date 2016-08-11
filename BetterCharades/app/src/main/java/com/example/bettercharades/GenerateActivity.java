@@ -25,6 +25,7 @@ public class GenerateActivity extends AppCompatActivity {
 
     Button generateCategoryButton;
     EditText generateUrl;
+    int target_column = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,13 @@ public class GenerateActivity extends AppCompatActivity {
         protected String doInBackground(String... urls) {
             String name = null;
             try {
+
+                try {
+                    target_column = Integer.parseInt(urls[0].split(" ")[1]);
+                } catch (Exception e) {
+                    //No target column parameter; do nothing
+                }
+                urls[0] = urls[0].split(" ")[0];
                 Document doc = Jsoup.connect(urls[0]).get();
 
                 // Getting category name
@@ -69,7 +77,24 @@ public class GenerateActivity extends AppCompatActivity {
                 Elements rows = doc.getElementsByTag("tr");
                 for (Element row : rows) {
                     try {
-                        String item = row.getElementsByTag("td").get(0).text();
+                        String item = "";
+                        try {
+                            Log.e("Item", row.getElementsByTag("td").toString());
+
+                            item = row.getElementsByTag("td").get(target_column).text();
+
+                        } catch (Exception e) {
+                            try {
+                                // Try first child
+                                Log.e("Item", row.getElementsByTag("td").toString());
+
+                                item = row.getElementsByTag("td").get(target_column).child(0).text();
+
+                            } catch (Exception f) {
+                                // Try first grandchild
+                                item = row.getElementsByTag("td").get(target_column).child(0).child(0).text();
+                            }
+                        }
                         Log.e("Item", row.toString());
                         item = item.replace("\n", "");
 
@@ -95,9 +120,14 @@ public class GenerateActivity extends AppCompatActivity {
                 }
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Could not generate category from link",
-                        Toast.LENGTH_SHORT).show();
-                Log.e("JSOUP", "Could not generate category from link");
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Could not generate category from link",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Log.e("Error", e.getMessage());
             }
             return name;
         }
